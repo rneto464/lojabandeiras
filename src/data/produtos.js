@@ -3,7 +3,7 @@ export const produtosDB = {
     'ofic-022': {
         id: 'ofic-022', nome: 'Bandeira 0,22 x 0,33m', sku: 'OFIC-022', marca: 'Bandeiras Oficiais', estrelas: 5,
         imagemPrincipal: '/images/Bandeira 0,22 x 0,33m.png', galeria: ['/images/Bandeira 0,22 x 0,33m.png'],
-        materiaisDisponiveis: ['Oxford'], tamanhos: [{ id: '1', tamanho: '0,22 x 0,33m', medida: 'Padrão', precos: { 'Oxford': '1,00' } }]
+        materiaisDisponiveis: ['Oxford'], tamanhos: [{ id: '1', tamanho: '0,22 x 0,33m', medida: 'Padrão', precos: { 'Oxford': '22,00' } }]
     },
     'ofic-030': {
         id: 'ofic-030', nome: 'Bandeira 0,30 x 0,40m', sku: 'OFIC-030', marca: 'Bandeiras Oficiais', estrelas: 5,
@@ -307,5 +307,49 @@ export const produtosDB = {
         galeria: ['/images/mastro-madeira.png'],
         materiaisDisponiveis: ['Metal'],
         tamanhos: [{ id: '1', tamanho: 'Único', medida: 'Padrão', precos: { 'Metal': '55,00' } }]
+    },
+    'bandeira-mesa': {
+        id: 'bandeira-mesa', nome: 'Bandeiras de Mesa Personalizadas', sku: 'BD-MESA-01', marca: 'Fábrica de Bandeiras', estrelas: 5,
+        imagemPrincipal: '/images/bandeirasdemesa.png', galeria: ['/images/bandeirasdemesa.png'],
+        materiaisDisponiveis: ['Cetim Brilhante'],
+        tamanhos: [
+            { id: '1', tamanho: 'Base 30cm - 1 Bandeira', medida: 'Kit Completo', precos: { 'Cetim Brilhante': '48,00' } },
+            { id: '2', tamanho: 'Base 30cm - 2 Bandeiras', medida: 'Kit Completo', precos: { 'Cetim Brilhante': '72,00' } },
+            { id: '3', tamanho: 'Base 30cm - 3 Bandeiras', medida: 'Kit Completo', precos: { 'Cetim Brilhante': '86,00' } }
+        ]
+    },
+    'kit-base-chao': {
+        id: 'kit-base-chao', nome: 'Kit Base de Chão (Gabinete) + Mastros', sku: 'KIT-CHAO-01', marca: 'Fábrica de Bandeiras', estrelas: 5,
+        imagemPrincipal: '/images/kitc3 .png', galeria: ['/images/kitc3 .png'],
+        materiaisDisponiveis: ['Madeira Cromada', 'Alumínio'],
+        tamanhos: [
+            { id: '1', tamanho: 'Base c/ 1 Mastro + 1 Bandeira', medida: 'Kit Completo', precos: { 'Madeira Cromada': '350,00', 'Alumínio': '280,00' } },
+            { id: '2', tamanho: 'Base c/ 2 Mastros + 2 Bandeiras', medida: 'Kit Completo', precos: { 'Madeira Cromada': '480,00', 'Alumínio': '390,00' } },
+            { id: '3', tamanho: 'Base c/ 3 Mastros + 3 Bandeiras', medida: 'Kit Completo', precos: { 'Madeira Cromada': '590,00', 'Alumínio': '490,00' } }
+        ]
+    },
+    'bandeira-personalizada': {
+        id: 'bandeira-personalizada', nome: 'Bandeira Oficial Personalizada (Sua Marca)', sku: 'BND-PERS-01', marca: 'Fábrica de Bandeiras', estrelas: 5,
+        imagemPrincipal: '/images/bandeiraatletica.png', galeria: ['/images/bandeiraatletica.png'],
+        materiaisDisponiveis: ['Oxford Premium', 'Cetim Luxo'],
+        tamanhos: [
+            { id: '1', tamanho: '0.22m x 0.33m', medida: '1/2 Pano', precos: { 'Oxford Premium': '30,00', 'Cetim Luxo': '45,00' } },
+            { id: '2', tamanho: '0.30m x 0.40m', medida: 'Padrão', precos: { 'Oxford Premium': '35,00', 'Cetim Luxo': '55,00' } },
+            { id: '3', tamanho: '0.40m x 0.60m', medida: 'Padrão', precos: { 'Oxford Premium': '40,00', 'Cetim Luxo': '65,00' } },
+            { id: '4', tamanho: '0.90m x 1.28m', medida: '2 Panos', precos: { 'Oxford Premium': '120,00', 'Cetim Luxo': '180,00' } },
+            { id: '5', tamanho: '1.12m x 1.60m', medida: '2 1/2 Panos', precos: { 'Oxford Premium': '150,00', 'Cetim Luxo': '210,00' } },
+            { id: '6', tamanho: '1.35m x 1.92m', medida: '3 Panos', precos: { 'Oxford Premium': '190,00', 'Cetim Luxo': '280,00' } },
+            { id: '7', tamanho: '1.80m x 2.56m', medida: '4 Panos', precos: { 'Oxford Premium': '300,00', 'Cetim Luxo': '450,00' } },
+            { id: '8', tamanho: '2.25m x 3.25m', medida: '5 Panos', precos: { 'Oxford Premium': '480,00', 'Cetim Luxo': '720,00' } },
+            { id: '9', tamanho: '2.70m x 3.90m', medida: '6 Panos', precos: { 'Oxford Premium': '550,00', 'Cetim Luxo': '825,00' } },
+            { id: '10', tamanho: '3.15m x 4.55m', medida: '7 Panos', precos: { 'Oxford Premium': '650,00', 'Cetim Luxo': '975,00' } },
+            { id: '11', tamanho: '3.60m x 5.20m', medida: '8 Panos', precos: { 'Oxford Premium': '750,00', 'Cetim Luxo': '1.125,00' } },
+            { id: '12', tamanho: '4.05m x 5.85m', medida: '9 Panos', precos: { 'Oxford Premium': '1.250,00', 'Cetim Luxo': '1.875,00' } },
+            { id: '13', tamanho: '4.50m x 6.50m', medida: '10 Panos', precos: { 'Oxford Premium': '1.450,00', 'Cetim Luxo': '2.175,00' } },
+            { id: '14', tamanho: '5.40m x 7.80m', medida: '12 Panos', precos: { 'Oxford Premium': '1.600,00', 'Cetim Luxo': '2.400,00' } },
+            { id: '15', tamanho: '5.85m x 8.45m', medida: '13 Panos', precos: { 'Oxford Premium': '1.950,00', 'Cetim Luxo': '2.925,00' } },
+            { id: '16', tamanho: '6.30m x 9.10m', medida: '14 / 20 Panos', precos: { 'Oxford Premium': '2.350,00', 'Cetim Luxo': '3.525,00' } },
+            { id: '17', tamanho: '10.40m x 7.20m', medida: '16 Panos', precos: { 'Oxford Premium': '2.900,00', 'Cetim Luxo': '4.350,00' } }
+        ]
     }
 };

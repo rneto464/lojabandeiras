@@ -37,7 +37,7 @@ export function Footer() {
                     <h4 style={{ color: 'var(--text-light)', marginBottom: '1.5rem', fontSize: '1.1rem' }}>Contato</h4>
                     <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                         <li style={{ color: '#A0AEC0', fontSize: '0.9rem' }}>WhatsApp: <a href="https://wa.me/559884759642" target="_blank" rel="noopener noreferrer" style={{ color: '#A0AEC0', textDecoration: 'none' }}>(98) 8475-9642</a></li>
-                        <li style={{ color: '#A0AEC0', fontSize: '0.9rem' }}>contato@bandeirasdomundo.com.br</li>
+                        <li style={{ color: '#A0AEC0', fontSize: '0.9rem' }}>vendasfabricadasbandeiras@outlook.com</li>
                         <li style={{ color: '#A0AEC0', fontSize: '0.9rem' }}>Entrega para todo o Brasil</li>
                     </ul>
                 </div>

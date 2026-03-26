@@ -56,9 +56,9 @@ export function Products() {
             imagemBanner: '/images/bandeira-empresarial-nova.png',
             itens: [
                 { id: 'emp-2panos', produto: 'Bandeira 0,90 x 1,28m', secao: 'INSTITUCIONAL', preco: '126,00', extra: '(Oxford) / R$156 (Cetim)', imagem: '/images/bandeira-empresarial-nova.png' },
-                { id: 'emp-2meia', produto: 'Bandeira 1,12 x 1,60m', secao: 'INSTITUCIONAL', preco: '146,00', extra: '(Oxford) / R$172 (Cetim)', imagem: '/images/bandeira-empresarial-nova.png' },
-                { id: 'emp-3panos', produto: 'Bandeira 1,35 x 1,92m', secao: 'INSTITUCIONAL', preco: '162,00', extra: '(Oxford)', imagem: '/images/bandeira-empresarial-nova.png' },
-                { id: 'emp-4panos', produto: 'Bandeira 1,80 x 2,56m', secao: 'INSTITUCIONAL', preco: '286,00', extra: '(Oxford)', imagem: '/images/bandeira-empresarial-nova.png' }
+                { id: 'emp-2meia', produto: 'Bandeira 1,12 x 1,60m', secao: 'INSTITUCIONAL', preco: '146,00', extra: '(Oxford) / R$172 (Cetim)', imagem: '/images/bandeirasmunicipiose.png' },
+                { id: 'emp-3panos', produto: 'Bandeira 1,35 x 1,92m', secao: 'INSTITUCIONAL', preco: '162,00', extra: '(Oxford)', imagem: '/images/Bandeirasdetodosospaísesdomundo.jpeg' },
+                { id: 'emp-4panos', produto: 'Bandeira 1,80 x 2,56m', secao: 'INSTITUCIONAL', preco: '286,00', extra: '(Oxford)', imagem: '/images/bandeiraatletica.png' }
             ]
         },
         {
@@ -81,7 +81,7 @@ export function Products() {
             imagemBanner: '/images/mastro-madeira.png',
             itens: [
                 { id: 'mastro-2m', produto: 'Mastro Alumínio/Madeira (2 Metros) c/ Lança', secao: 'MASTROS', preco: '132,00', extra: 'Ideal p/ 0,90 x 1,30m', imagem: '/images/mastro-madeira.png' },
-                { id: 'mastro-2-20m', produto: 'Mastro Alumínio 28mm (2,20 Metros) c/ Lança', secao: 'MASTROS', preco: '146,00', extra: 'Dividido em 2 partes', imagem: '/images/mastro-madeira.png' }
+                { id: 'mastro-2-20m', produto: 'Mastro Alumínio 28mm (2,20 Metros) c/ Lança', secao: 'MASTROS', preco: '146,00', extra: 'Dividido em 2 partes', imagem: '/images/Mastro Alumínio 28mm (2,20 Metros).jpg' }
             ]
         },
         {
@@ -91,7 +91,7 @@ export function Products() {
             imagemBanner: '/images/roseta-nova.png',
             itens: [
                 { id: 'roseta', produto: 'Roseta com Franjas (Cores oficiais)', secao: 'ACESSÓRIOS', preco: '90,00', extra: '0,70 x 11cm', imagem: '/images/roseta-nova.png' },
-                { id: 'talabarte', produto: 'Talabarte em Tecido com Apoio p/ Mastro', secao: 'ACESSÓRIOS', preco: '125,00', extra: '0,90 x 11cm' }
+                { id: 'talabarte', produto: 'Talabarte em Tecido com Apoio p/ Mastro', secao: 'ACESSÓRIOS', preco: '125,00', extra: '0,90 x 11cm', imagem: '/images/talabarte_tecido.png' }
             ]
         },
         {
@@ -101,8 +101,8 @@ export function Products() {
             imagemBanner: '/images/kit-mesa.png',
             itens: [
                 { id: 'kit-mesa-1', produto: 'Kit p/ Mesa c/ 1 Bandeira Dupla Face', secao: 'KITS', preco: '48,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit-mesa.png' },
-                { id: 'kit-mesa-2', produto: 'Kit p/ Mesa c/ 2 Bandeiras Dupla Face', secao: 'KITS', preco: '72,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit-mesa.png' },
-                { id: 'kit-mesa-3', produto: 'Kit p/ Mesa c/ 3 Bandeiras Dupla Face', secao: 'KITS', preco: '86,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit-mesa.png' }
+                { id: 'kit-mesa-2', produto: 'Kit p/ Mesa c/ 2 Bandeiras Dupla Face', secao: 'KITS', preco: '72,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit_mesa_fr_mm_nr.png' },
+                { id: 'kit-mesa-3', produto: 'Kit p/ Mesa c/ 3 Bandeiras Dupla Face', secao: 'KITS', preco: '86,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit_mesa_pw_mn_kn.png' }
             ]
         },
         {
@@ -468,9 +468,9 @@ export function Products() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', width: '100%', maxWidth: '900px', position: 'relative', zIndex: 2 }}>
                         {[
-                            { title: 'Modelo Bordada', img: '/images/modelo_bordado.png' },
-                            { title: 'Modelo Estampada', img: '/images/modeloestampada.png' },
-                            { title: 'Modelo Cetim', img: '/images/bandeiracetim.png' }
+                            { title: 'Modelo Bordada', img: '/images/modelo_bordado_new.png' },
+                            { title: 'Modelo Estampada', img: '/images/modelo_estampada_new.png' },
+                            { title: 'Modelo Cetim', img: '/images/modelo_cetim_new.png' }
                         ].map((promo, idx) => (
                             <div key={idx} style={{ textAlign: 'center' }}>
                                 <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '0.2rem' }}>{promo.title}</h3>

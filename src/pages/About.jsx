@@ -37,7 +37,7 @@ export function About() {
                                 <div style={{ position: 'absolute', bottom: '-10px', left: '50%', transform: 'translateX(-50%)', width: '60px', height: '4px', backgroundColor: 'var(--primary-yellow)', borderRadius: '2px' }}></div>
                             </h2>
                             <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-                                Fundada em 2015, a <strong>BandeirasJA</strong> nasceu da paixão por vexilologia (o estudo das bandeiras) e o desejo de oferecer ao público brasileiro um acesso fácil a símbolos nacionais, estaduais e decorativos de alta qualidade, que até então eram difíceis de encontrar com um bom acabamento.
+                                Fundada em 2025, a <strong>BandeirasJA</strong> nasceu da paixão por vexilologia (o estudo das bandeiras) e o desejo de oferecer ao público brasileiro um acesso fácil a símbolos nacionais, estaduais e decorativos de alta qualidade, que até então eram difíceis de encontrar com um bom acabamento.
                             </p>
                             <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
                                 O que começou como um pequeno negócio familiar em uma garagem, rapidamente se transformou na principal loja online de bandeiras do Brasil. Hoje, nos orgulhamos de ter milhares de clientes satisfeitos, desde colecionadores apaixonados até grandes empresas e instituições governamentais.

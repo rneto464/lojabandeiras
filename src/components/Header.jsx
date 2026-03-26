@@ -104,7 +104,7 @@ export function Header() {
                   <div style={{ maxHeight: '300px', overflowY: 'auto', padding: '1rem' }}>
                     {favorites.map((item, index) => (
                       <div key={index} style={{ display: 'flex', gap: '1rem', marginBottom: index !== favorites.length - 1 ? '1rem' : '0', paddingBottom: index !== favorites.length - 1 ? '1rem' : '0', borderBottom: index !== favorites.length - 1 ? '1px solid var(--border-color)' : 'none' }}>
-                        <img src={item.imagemPrincipal || 'https://images.unsplash.com/photo-1526682847805-721837c3f83b?w=200&auto=format&fit=crop&q=60'} alt={item.produto} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }} />
+                        <img src={item.imagem || item.imagemPrincipal || item.image || '/images/bandeira-oficial-dobrada.png'} alt={item.produto || item.nome} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }} />
                         <div style={{ flex: 1, cursor: 'pointer' }} onClick={() => { setIsFavoritesOpen(false); navigate(`/produto/${item.id}`); }}>
                           <h4 style={{ margin: '0 0 0.2rem 0', fontSize: '0.8rem', color: 'var(--dark-blue)' }}>{item.produto || item.nome}</h4>
                           <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--dark-blue)' }}>R$ {item.preco}</span>
@@ -220,7 +220,7 @@ export function Header() {
                           borderBottom: index !== cartItems.length - 1 ? '1px solid var(--border-color)' : 'none'
                         }}>
                           <img
-                            src={item.image || item.imagemPrincipal || 'https://images.unsplash.com/photo-1526682847805-721837c3f83b?w=200&auto=format&fit=crop&q=60'}
+                            src={item.imagem || item.imagemPrincipal || item.image || '/images/bandeira-oficial-dobrada.png'}
                             alt={item.nome || item.produto}
                             style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }}
                           />
@@ -228,6 +228,7 @@ export function Header() {
                             <h4 style={{ margin: '0 0 0.2rem 0', fontSize: '0.9rem', color: 'var(--dark-blue)' }}>{item.nome || item.produto}</h4>
                             <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
                               {item.material} {item.tamanho && `| ${item.tamanho}`}
+                              {item.observacao && <><br /><span style={{ color: '#166534', fontWeight: '500' }}>Nota: {item.observacao.substring(0,30)}{item.observacao.length > 30 ? '...' : ''}</span></>}
                             </p>
 
                             {/* Controles de Quantidade */}

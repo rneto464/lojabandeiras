@@ -145,7 +145,7 @@ export function Home() {
                     }}>
                         {/* 1. Wind Banner */}
                         <div
-                            onClick={() => navigate('/produtos')}
+                            onClick={() => navigate('/produto/windbanner')}
                             style={{
                                 cursor: 'pointer',
                                 height: '200px',
@@ -180,7 +180,7 @@ export function Home() {
 
                         {/* 2. Bandeiras de Mesa */}
                         <div
-                            onClick={() => navigate('/produtos')}
+                            onClick={() => navigate('/produto/bandeira-mesa')}
                             style={{
                                 cursor: 'pointer',
                                 height: '200px',
@@ -215,7 +215,7 @@ export function Home() {
 
                         {/* 3. Kits de Bandeiras */}
                         <div
-                            onClick={() => navigate('/produtos')}
+                            onClick={() => navigate('/produto/kit-base-chao')}
                             style={{
                                 cursor: 'pointer',
                                 height: '200px',
@@ -250,13 +250,7 @@ export function Home() {
 
                         {/* 4. SUA MARCA AQUI / Orçamento */}
                         <div
-                            onClick={() => {
-                                const section = document.getElementById('produtos');
-                                if (section) {
-                                    const offsetTop = section.getBoundingClientRect().top + window.scrollY;
-                                    window.scrollTo({ top: offsetTop - 80, behavior: 'smooth' });
-                                }
-                            }}
+                            onClick={() => navigate('/produto/bandeira-personalizada')}
                             style={{
                                 cursor: 'pointer',
                                 height: '200px',

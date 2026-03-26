@@ -30,6 +30,9 @@ export function Success() {
                     message += `*Itens do Pedido:*\n`;
                     order.cartItems.forEach(item => {
                         message += `- ${item.quantidade}x ${item.nome} (${item.material} / ${item.tamanho}) - R$ ${item.preco}\n`;
+                        if (item.observacao) {
+                            message += `  *Detalhes da Arte:* ${item.observacao}\n`;
+                        }
                     });
                     message += `\n*TOTAL:* R$ ${order.cartTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
 

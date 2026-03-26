@@ -7,7 +7,15 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-app.use(cors());
+const allowedOrigins = [
+    'http://localhost:5173',
+    process.env.FRONTEND_URL || 'https://bandeirasja.vercel.app'
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 // Initialize Mercado Pago client with the Access Token

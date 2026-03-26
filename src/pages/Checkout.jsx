@@ -131,11 +131,16 @@ export function Checkout() {
                             {cartItems.map((item, index) => (
                                 <div key={index} style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
                                     <div style={{ width: '60px', height: '60px', borderRadius: '4px', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
-                                        <img src={item.image || item.imagemPrincipal || '/images/bandeira-oficial-dobrada.png'} alt={item.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <img src={item.imagem || item.imagemPrincipal || item.image || '/images/bandeira-oficial-dobrada.png'} alt={item.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <div style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--dark-blue)', marginBottom: '0.2rem' }}>{item.nome}</div>
                                         <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{item.material} - {item.tamanho}</div>
+                                        {item.observacao && (
+                                            <div style={{ fontSize: '0.75rem', color: '#166534', marginTop: '0.3rem', padding: '0.4rem', backgroundColor: '#f0fdf4', borderRadius: '4px', borderLeft: '2px solid #166534' }}>
+                                                <strong>Arte:</strong> {item.observacao}
+                                            </div>
+                                        )}
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
                                             <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Qtd: {item.quantidade}</span>
                                             <span style={{ fontSize: '0.9rem', fontWeight: '700', color: 'var(--dark-blue)' }}>R$ {item.preco}</span>

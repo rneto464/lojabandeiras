@@ -42,11 +42,11 @@ app.post('/api/create_preference', async (req, res) => {
                     email: email || 'test_user@testuser.com'
                 },
                 back_urls: {
-                    success: 'http://localhost:5173/sucesso', // Change in production
-                    failure: 'http://localhost:5173/',
-                    pending: 'http://localhost:5173/'
-                }
-                // auto_return: 'approved'
+                    success: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/sucesso`,
+                    failure: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/`,
+                    pending: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/`
+                },
+                auto_return: 'approved'
             }
         };
 

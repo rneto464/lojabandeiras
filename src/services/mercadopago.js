@@ -22,7 +22,7 @@ export const initializeMercadoPago = () => {
  */
 export const createPreference = async (paymentData) => {
   try {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const apiUrl = import.meta.env.VITE_API_URL ?? '';
     const response = await axios.post(`${apiUrl}/api/create_preference`, paymentData);
     
     // The backend should respond with { id: 'preference_id_string' }

@@ -371,5 +371,58 @@ export const produtosDB = {
             { id: '16', tamanho: '6.30m x 9.10m', medida: '14 / 20 Panos', precos: { 'Oxford Premium': '3.055,00', 'Cetim Luxo': '4.582,50' } },
             { id: '17', tamanho: '10.40m x 7.20m', medida: '16 Panos', precos: { 'Oxford Premium': '3.770,00', 'Cetim Luxo': '5.655,00' } }
         ]
+    },
+
+    // Produtos em Destaque (Home)
+    'kit-desfile': {
+        id: 'kit-desfile', nome: 'Kit para Desfile: Mastro, Bandeira e Talabarte com Boldriê', sku: 'KIT-DSF-01', marca: 'Fábrica de Bandeiras', estrelas: 5,
+        imagemPrincipal: '/images/kitparadisfile.jpg', galeria: ['/images/kitparadisfile.jpg'],
+        materiaisDisponiveis: ['Kit Completo'],
+        tamanhos: [
+            { id: '1', tamanho: 'Kit Padrão', medida: 'Bandeira + Mastro + Talabarte', precos: { 'Kit Completo': '1.450,00' } }
+        ]
+    },
+    'kit-fachada': {
+        id: 'kit-fachada', nome: 'Kit Fachada com 3,10m de altura', sku: 'KIT-FAC-01', marca: 'Fábrica de Bandeiras', estrelas: 5,
+        imagemPrincipal: '/images/Kit Fachada com 3,10m de altura.jpeg', galeria: ['/images/Kit Fachada com 3,10m de altura.jpeg'],
+        materiaisDisponiveis: ['Kit Completo'],
+        tamanhos: [
+            { id: '1', tamanho: 'Kit 3,10m', medida: 'Kit Externo Completo', precos: { 'Kit Completo': '890,00' } }
+        ]
+    },
+    'bandeiras-mundo': {
+        id: 'bandeiras-mundo', nome: 'Bandeiras de todos os países do mundo', sku: 'BND-MND-01', marca: 'Fábrica de Bandeiras', estrelas: 5,
+        imagemPrincipal: '/images/Bandeirasdetodosospaísesdomundo.jpeg', galeria: ['/images/Bandeirasdetodosospaísesdomundo.jpeg'],
+        materiaisDisponiveis: ['Oxford', 'Cetim'],
+        tamanhos: [
+            { id: '1', tamanho: '0,90 x 1,28m', medida: '2 Panos', precos: { 'Oxford': '76,00', 'Cetim': '98,00' } },
+            { id: '2', tamanho: '1,12 x 1,60m', medida: '2 1/2 Panos', precos: { 'Oxford': '98,00', 'Cetim': '120,00' } },
+            { id: '3', tamanho: '1,35 x 1,92m', medida: '3 Panos', precos: { 'Oxford': '130,00', 'Cetim': '160,00' } }
+        ]
+    },
+    'rosetas-talabartes': {
+        id: 'rosetas-talabartes', nome: 'Rosetas e Talabartes personalizáveis', sku: 'ROS-TAL-01', marca: 'Acessórios Premium', estrelas: 5,
+        imagemPrincipal: '/images/roseta.png', galeria: ['/images/roseta.png'],
+        materiaisDisponiveis: ['Tecido'],
+        tamanhos: [
+            { id: '1', tamanho: 'Roseta', medida: '0,70 x 11cm', precos: { 'Tecido': '45,00' } },
+            { id: '2', tamanho: 'Talabarte', medida: '0,90 x 11cm', precos: { 'Tecido': '162,50' } }
+        ]
+    },
+    'mastro-aluminio': {
+        id: 'mastro-aluminio', nome: 'Mastro em Alumínio 2,18m Diâmetro 28mm', sku: 'MST-ALU-28', marca: 'Acessórios Premium', estrelas: 5,
+        imagemPrincipal: '/images/mastro-madeira.png', galeria: ['/images/mastro-madeira.png'],
+        materiaisDisponiveis: ['Alumínio'],
+        tamanhos: [
+            { id: '1', tamanho: '2,18m', medida: 'Diâmetro 28mm', precos: { 'Alumínio': '135,00' } }
+        ]
+    },
+    'canopla-aluminio': {
+        id: 'canopla-aluminio', nome: 'Canopla de alumínio para base de madeira', sku: 'CAN-ALU-01', marca: 'Acessórios Premium', estrelas: 5,
+        imagemPrincipal: '/images/base-madeira.png', galeria: ['/images/base-madeira.png'],
+        materiaisDisponiveis: ['Alumínio'],
+        tamanhos: [
+            { id: '1', tamanho: 'Padrão', medida: 'Para Base de Madeira', precos: { 'Alumínio': '89,00' } }
+        ]
     }
 };

@@ -3,6 +3,28 @@ import { ShoppingCart, ChevronLeft, ChevronRight, Heart, Search } from 'lucide-r
 import { useNavigate, useLocation } from 'react-router-dom';
 import FavoritesContext from '../context/FavoritesContext';
 import CartContext from '../context/CartContext';
+import { produtosDB } from '../data/produtos';
+
+// Helper: returns the lowest price string for a given product ID
+const getStartingPrice = (id) => {
+    const prod = produtosDB[id];
+    if (!prod) return null;
+    const allPrices = prod.tamanhos.flatMap(t =>
+        Object.values(t.precos).map(p => parseFloat(p.replace('.', '').replace(',', '.')))
+    );
+    const min = Math.min(...allPrices);
+    return min.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
+// Helper: returns the materials string e.g. "(Oxford) / R$ 202,80 (Cetim)"
+const getMaterialsHint = (id) => {
+    const prod = produtosDB[id];
+    if (!prod || prod.materiaisDisponiveis.length <= 1) return prod ? `(${prod.materiaisDisponiveis[0]})` : '';
+    return prod.materiaisDisponiveis.map(mat => {
+        const preco = prod.tamanhos[0]?.precos[mat];
+        return preco ? `(${mat}) R$\u00a0${preco}` : `(${mat})`;
+    }).join(' / ');
+};
 
 export function Products() {
     const navigate = useNavigate();
@@ -30,23 +52,23 @@ export function Products() {
             descricao: 'Linha fabricada em Oxford 100% ou Cetim de seda, com leitura correta dos dois lados.',
             imagemBanner: '/images/bandeira-oficial-dobrada.png',
             itens: [
-                { id: 'ofic-022', produto: 'Bandeira 0,22 x 0,33m', secao: 'OFICIAL DUPLA FACE', preco: '22,00', extra: '(Oxford)', imagem: '/images/Bandeira 0,22 x 0,33m.png' },
-                { id: 'ofic-030', produto: 'Bandeira 0,30 x 0,40m', secao: 'OFICIAL DUPLA FACE', preco: '25,00', extra: '(Oxford)', imagem: '/images/Bandeira 0,30 x 0,40m.png' },
-                { id: 'ofic-040', produto: 'Bandeira 0,40 x 0,60m', secao: 'OFICIAL DUPLA FACE', preco: '28,00', extra: '(Oxford)', imagem: '/images/Bandeira 0,40 x 0,60m.png' },
-                { id: 'ofic-2panos', produto: 'Bandeira 2 Panos (0,90 x 1,28m)', secao: 'OFICIAL DUPLA FACE', preco: '96,00', extra: '(Oxford) / R$156 (Cetim)', imagem: '/images/Bandeira 2 Panos (0,90 x 1,28m).png' },
-                { id: 'ofic-2meia', produto: 'Bandeira 2 1/2 Panos (1,12 x 1,60m)', secao: 'OFICIAL DUPLA FACE', preco: '112,00', extra: '(Oxford) / R$172 (Cetim)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-3panos', produto: 'Bandeira 3 Panos (1,35 x 1,92m)', secao: 'OFICIAL DUPLA FACE', preco: '156,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-4panos', produto: 'Bandeira 4 Panos (1,80 x 2,56m)', secao: 'OFICIAL DUPLA FACE', preco: '260,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-5panos', produto: 'Bandeira 5 Panos (2,25 x 3,25m)', secao: 'OFICIAL DUPLA FACE', preco: '420,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-6panos', produto: 'Bandeira 6 Panos (2,70 x 3,90m)', secao: 'OFICIAL DUPLA FACE', preco: '460,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-7panos', produto: 'Bandeira 7 Panos (3,15 x 4,55m)', secao: 'OFICIAL DUPLA FACE', preco: '540,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-8panos', produto: 'Bandeira 8 Panos (3,60 x 5,20m)', secao: 'OFICIAL DUPLA FACE', preco: '640,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-9panos', produto: 'Bandeira 9 Panos (4,05 x 5,85m)', secao: 'OFICIAL DUPLA FACE', preco: '1.100,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-10panos', produto: 'Bandeira 10 Panos (4,50 x 6,50m)', secao: 'OFICIAL DUPLA FACE', preco: '1.260,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-12panos', produto: 'Bandeira 12 Panos (5,40 x 7,80m)', secao: 'OFICIAL DUPLA FACE', preco: '1.390,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-13panos', produto: 'Bandeira 13 Panos (5,85 x 8,45m)', secao: 'OFICIAL DUPLA FACE', preco: '1.690,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-14panos', produto: 'Bandeira 14/20 Panos (6,30 x 9,10m)', secao: 'OFICIAL DUPLA FACE', preco: '2.060,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-16panos', produto: 'Bandeira 16 Panos (10,40 x 7,20m)', secao: 'OFICIAL DUPLA FACE', preco: '2.540,00', extra: '(Oxford)', imagem: '/images/bandeira-oficial-dobrada.png' }
+                { id: 'ofic-022', produto: 'Bandeira 0,22 x 0,33m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,22 x 0,33m.png' },
+                { id: 'ofic-030', produto: 'Bandeira 0,30 x 0,40m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,30 x 0,40m.png' },
+                { id: 'ofic-040', produto: 'Bandeira 0,40 x 0,60m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,40 x 0,60m.png' },
+                { id: 'ofic-2panos', produto: 'Bandeira 2 Panos (0,90 x 1,28m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 2 Panos (0,90 x 1,28m).png' },
+                { id: 'ofic-2meia', produto: 'Bandeira 2 1/2 Panos (1,12 x 1,60m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-3panos', produto: 'Bandeira 3 Panos (1,35 x 1,92m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-4panos', produto: 'Bandeira 4 Panos (1,80 x 2,56m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-5panos', produto: 'Bandeira 5 Panos (2,25 x 3,25m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-6panos', produto: 'Bandeira 6 Panos (2,70 x 3,90m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-7panos', produto: 'Bandeira 7 Panos (3,15 x 4,55m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-8panos', produto: 'Bandeira 8 Panos (3,60 x 5,20m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-9panos', produto: 'Bandeira 9 Panos (4,05 x 5,85m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-10panos', produto: 'Bandeira 10 Panos (4,50 x 6,50m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-12panos', produto: 'Bandeira 12 Panos (5,40 x 7,80m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-13panos', produto: 'Bandeira 13 Panos (5,85 x 8,45m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-14panos', produto: 'Bandeira 14/20 Panos (6,30 x 9,10m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-16panos', produto: 'Bandeira 16 Panos (10,40 x 7,20m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' }
             ]
         },
         {
@@ -55,10 +77,10 @@ export function Products() {
             descricao: 'Linha personalizada e institucional com aplicação Dupla Face Oficial.',
             imagemBanner: '/images/bandeira-empresarial-nova.png',
             itens: [
-                { id: 'emp-2panos', produto: 'Bandeira 0,90 x 1,28m', secao: 'INSTITUCIONAL', preco: '126,00', extra: '(Oxford) / R$156 (Cetim)', imagem: '/images/bandeira-empresarial-nova.png' },
-                { id: 'emp-2meia', produto: 'Bandeira 1,12 x 1,60m', secao: 'INSTITUCIONAL', preco: '146,00', extra: '(Oxford) / R$172 (Cetim)', imagem: '/images/bandeirasmunicipiose.png' },
-                { id: 'emp-3panos', produto: 'Bandeira 1,35 x 1,92m', secao: 'INSTITUCIONAL', preco: '162,00', extra: '(Oxford)', imagem: '/images/Bandeirasdetodosospaísesdomundo.jpeg' },
-                { id: 'emp-4panos', produto: 'Bandeira 1,80 x 2,56m', secao: 'INSTITUCIONAL', preco: '286,00', extra: '(Oxford)', imagem: '/images/bandeiraatletica.png' }
+                { id: 'emp-2panos', produto: 'Bandeira 0,90 x 1,28m', secao: 'INSTITUCIONAL', imagem: '/images/bandeira-empresarial-nova.png' },
+                { id: 'emp-2meia', produto: 'Bandeira 1,12 x 1,60m', secao: 'INSTITUCIONAL', imagem: '/images/bandeirasmunicipiose.png' },
+                { id: 'emp-3panos', produto: 'Bandeira 1,35 x 1,92m', secao: 'INSTITUCIONAL', imagem: '/images/Bandeirasdetodosospaísesdomundo.jpeg' },
+                { id: 'emp-4panos', produto: 'Bandeira 1,80 x 2,56m', secao: 'INSTITUCIONAL', imagem: '/images/bandeiraatletica.png' }
             ]
         },
         {
@@ -67,11 +89,11 @@ export function Products() {
             descricao: 'Suportes de chão elegantes para gabinetes e eventos.',
             imagemBanner: '/images/base-madeira.png',
             itens: [
-                { id: 'base-mad-2', produto: 'Base Madeira (Cromada) - 2 Furos', secao: 'BASES', preco: '240,00', extra: '20x12x22', imagem: '/images/base-madeira.png' },
-                { id: 'base-mad-3', produto: 'Base Madeira (Cromada) - 3 Furos', secao: 'BASES', preco: '270,00', extra: '45x22x12', imagem: '/images/base-madeira.png' },
-                { id: 'base-mad-4', produto: 'Base Madeira (Cromada) - 4 Furos', secao: 'BASES', preco: '340,00', extra: '50x22x15', imagem: '/images/base-madeira.png' },
-                { id: 'base-mad-5', produto: 'Base Madeira (Cromada) - 5 Furos', secao: 'BASES', preco: '390,00', extra: '50x22x15', imagem: '/images/base-madeira.png' },
-                { id: 'base-alu-1', produto: 'Base Alumínio (Redonda Cromada) - 1 Furo', secao: 'BASES', preco: '170,00', extra: '29x29', imagem: '/images/base-madeira.png' }
+                { id: 'base-mad-2', produto: 'Base Madeira (Cromada) - 2 Furos', secao: 'BASES', imagem: '/images/base-madeira.png' },
+                { id: 'base-mad-3', produto: 'Base Madeira (Cromada) - 3 Furos', secao: 'BASES', imagem: '/images/base-madeira.png' },
+                { id: 'base-mad-4', produto: 'Base Madeira (Cromada) - 4 Furos', secao: 'BASES', imagem: '/images/base-madeira.png' },
+                { id: 'base-mad-5', produto: 'Base Madeira (Cromada) - 5 Furos', secao: 'BASES', imagem: '/images/base-madeira.png' },
+                { id: 'base-alu-1', produto: 'Base Alumínio (Redonda Cromada) - 1 Furo', secao: 'BASES', imagem: '/images/base-madeira.png' }
             ]
         },
         {
@@ -80,8 +102,8 @@ export function Products() {
             descricao: 'Estruturas para sustentação e desfile.',
             imagemBanner: '/images/mastro-madeira.png',
             itens: [
-                { id: 'mastro-2m', produto: 'Mastro Alumínio/Madeira (2 Metros) c/ Lança', secao: 'MASTROS', preco: '132,00', extra: 'Ideal p/ 0,90 x 1,30m', imagem: '/images/mastro-madeira.png' },
-                { id: 'mastro-2-20m', produto: 'Mastro Alumínio 28mm (2,20 Metros) c/ Lança', secao: 'MASTROS', preco: '146,00', extra: 'Dividido em 2 partes', imagem: '/images/Mastro Alumínio 28mm (2,20 Metros).jpg' }
+                { id: 'mastro-2m', produto: 'Mastro Alumínio/Madeira (2 Metros) c/ Lança', secao: 'MASTROS', imagem: '/images/mastro-madeira.png' },
+                { id: 'mastro-2-20m', produto: 'Mastro Alumínio 28mm (2,20 Metros) c/ Lança', secao: 'MASTROS', imagem: '/images/Mastro Alumínio 28mm (2,20 Metros).jpg' }
             ]
         },
         {
@@ -90,8 +112,8 @@ export function Products() {
             descricao: 'Itens complementares para uso cívico.',
             imagemBanner: '/images/roseta-nova.png',
             itens: [
-                { id: 'roseta', produto: 'Roseta com Franjas (Cores oficiais)', secao: 'ACESSÓRIOS', preco: '90,00', extra: '0,70 x 11cm', imagem: '/images/roseta-nova.png' },
-                { id: 'talabarte', produto: 'Talabarte em Tecido com Apoio p/ Mastro', secao: 'ACESSÓRIOS', preco: '125,00', extra: '0,90 x 11cm', imagem: '/images/talabarte_tecido.png' }
+                { id: 'roseta', produto: 'Roseta com Franjas (Cores oficiais)', secao: 'ACESSÓRIOS', imagem: '/images/roseta-nova.png' },
+                { id: 'talabarte', produto: 'Talabarte em Tecido com Apoio p/ Mastro', secao: 'ACESSÓRIOS', imagem: '/images/talabarte_tecido.png' }
             ]
         },
         {
@@ -100,9 +122,9 @@ export function Products() {
             descricao: 'Conjuntos em miniatura com suporte.',
             imagemBanner: '/images/kit-mesa.png',
             itens: [
-                { id: 'kit-mesa-1', produto: 'Kit p/ Mesa c/ 1 Bandeira Dupla Face', secao: 'KITS', preco: '48,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit-mesa.png' },
-                { id: 'kit-mesa-2', produto: 'Kit p/ Mesa c/ 2 Bandeiras Dupla Face', secao: 'KITS', preco: '72,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit_mesa_fr_mm_nr.png' },
-                { id: 'kit-mesa-3', produto: 'Kit p/ Mesa c/ 3 Bandeiras Dupla Face', secao: 'KITS', preco: '86,00', extra: 'Alumínio/Madeira 30cm', imagem: '/images/kit_mesa_pw_mn_kn.png' }
+                { id: 'kit-mesa-1', produto: 'Kit p/ Mesa c/ 1 Bandeira Dupla Face', secao: 'KITS', imagem: '/images/kit-mesa.png' },
+                { id: 'kit-mesa-2', produto: 'Kit p/ Mesa c/ 2 Bandeiras Dupla Face', secao: 'KITS', imagem: '/images/kit_mesa_fr_mm_nr.png' },
+                { id: 'kit-mesa-3', produto: 'Kit p/ Mesa c/ 3 Bandeiras Dupla Face', secao: 'KITS', imagem: '/images/kit_mesa_pw_mn_kn.png' }
             ]
         },
         {
@@ -111,7 +133,7 @@ export function Products() {
             descricao: 'Ferragens para instalação externa ou interna.',
             imagemBanner: '/images/suporte-parede.png',
             itens: [
-                { id: 'suporte-parede', produto: 'Suporte de Bandeira de Parede (30x20cm)', secao: 'SUPORTES', preco: '90,00', extra: 'c/ parafusos 6mm e bucha', imagem: '/images/suporte-parede.png' }
+                { id: 'suporte-parede', produto: 'Suporte de Bandeira de Parede (30x20cm)', secao: 'SUPORTES', imagem: '/images/suporte-parede.png' }
             ]
         }
     ];
@@ -176,24 +198,36 @@ export function Products() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 'auto' }}>
                         <div>
-                            <span style={{ fontSize: '0.65rem', color: '#6b7280', display: 'block', marginBottom: '-0.2rem' }}>A partir de</span>
-                            <div style={{ color: 'var(--dark-blue)', fontWeight: '800', fontSize: '1.2rem', display: 'flex', alignItems: 'flex-start' }}>
-                                <span style={{ fontSize: '0.7rem', marginTop: '0.2rem', marginRight: '0.1rem' }}>R$</span>
-                                {item.preco.split(',')[0]}
-                                <span style={{ fontSize: '0.8rem', marginTop: '0.1rem' }}>,{item.preco.split(',')[1]}</span>
-                            </div>
-                            <span style={{ fontSize: '0.6rem', color: '#9ca3af' }}>{item.extra}</span>
+                            {(() => {
+                                const preco = getStartingPrice(item.id);
+                                const hint = getMaterialsHint(item.id);
+                                if (!preco) return <span style={{ fontSize: '0.8rem', color: '#9ca3af' }}>Consulte</span>;
+                                const [inteiro, centavos] = preco.split(',');
+                                return (
+                                    <>
+                                        <span style={{ fontSize: '0.65rem', color: '#6b7280', display: 'block', marginBottom: '-0.2rem' }}>A partir de</span>
+                                        <div style={{ color: 'var(--dark-blue)', fontWeight: '800', fontSize: '1.2rem', display: 'flex', alignItems: 'flex-start' }}>
+                                            <span style={{ fontSize: '0.7rem', marginTop: '0.2rem', marginRight: '0.1rem' }}>R$</span>
+                                            {inteiro}
+                                            <span style={{ fontSize: '0.8rem', marginTop: '0.1rem' }}>,{centavos}</span>
+                                        </div>
+                                        <span style={{ fontSize: '0.6rem', color: '#9ca3af' }}>{hint}</span>
+                                    </>
+                                );
+                            })()}
                         </div>
 
                         <button
                             onClick={(e) => { 
                                 e.stopPropagation(); 
+                                const preco = getStartingPrice(item.id) || '0,00';
+                                const prod = produtosDB[item.id];
                                 addToCart({
                                     id: item.id,
                                     nome: item.produto,
-                                    preco: item.preco,
-                                    material: 'Padrão', // mock initial data required by cart
-                                    tamanhoId: 'default',
+                                    preco,
+                                    material: prod ? prod.materiaisDisponiveis[0] : 'Padrão',
+                                    tamanhoId: prod ? prod.tamanhos[0].id : 'default',
                                     quantidade: 1,
                                     imagem: item.imagem || '/images/bandeira-oficial-dobrada.png'
                                 }); 

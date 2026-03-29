@@ -28,7 +28,7 @@ export function ProductDetail() {
     const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
 
     // Identificar se o produto precisa da tela de envio WhatsApp
-    const isPersonalizado = id === 'windbanner' || id === 'bandeira-personalizada';
+    const isPersonalizado = id === 'windbanner' || id === 'bandeira-personalizada' || id === 'bandeira-mesa' || id === 'kit-base-chao';
 
     useEffect(() => {
         const tam = produto.tamanhos.find(t => t.id === tamanhoId);

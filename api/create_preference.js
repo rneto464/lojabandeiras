@@ -25,7 +25,9 @@ export default async function handler(req, res) {
 
         const client = new MercadoPagoConfig({ accessToken });
 
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+        // Detecta se existe a variável ou mapeia a origin padrão da Vercel
+        const origin = req.headers.origin || 'https://bandeirasja.vercel.app';
+        const frontendUrl = process.env.FRONTEND_URL || origin;
 
         const preferenceData = {
             body: {

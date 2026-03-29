@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Star, Heart, ShieldCheck, Truck, Info, ChevronRight, Share2, ArrowLeft, X } from 'lucide-react';
+import { ShoppingCart, Star, Heart, ShieldCheck, Truck, Info, ChevronRight, Share2, ArrowLeft, X, Search, Globe } from 'lucide-react';
 import CartContext from '../context/CartContext';
 import FavoritesContext from '../context/FavoritesContext';
 import { produtosDB } from '../data/produtos';
@@ -30,6 +30,35 @@ export function ProductDetail() {
     // Identificar se o produto precisa da tela de envio WhatsApp
     const isPersonalizado = id === 'windbanner' || id === 'bandeira-personalizada' || id === 'bandeira-mesa' || id === 'kit-base-chao';
 
+    // Seletor de País (bandeiras-mundo)
+    const isBandeiraMundo = id === 'bandeiras-mundo';
+    const [paisSelecionado, setPaisSelecionado] = useState(null);
+    const [isPaisModalOpen, setIsPaisModalOpen] = useState(false);
+    const [buscaPais, setBuscaPais] = useState('');
+
+    const listaPaises = [
+        { nome: 'Alemanha', emoji: '🇩🇪' }, { nome: 'Argentina', emoji: '🇦🇷' }, { nome: 'Austrália', emoji: '🇦🇺' },
+        { nome: 'Áustria', emoji: '🇦🇹' }, { nome: 'Bélgica', emoji: '🇧🇪' }, { nome: 'Bolívia', emoji: '🇧🇴' },
+        { nome: 'Brasil', emoji: '🇧🇷' }, { nome: 'Canadá', emoji: '🇨🇦' }, { nome: 'Chile', emoji: '🇨🇱' },
+        { nome: 'China', emoji: '🇨🇳' }, { nome: 'Colômbia', emoji: '🇨🇴' }, { nome: 'Cuba', emoji: '🇨🇺' },
+        { nome: 'Dinamarca', emoji: '🇩🇰' }, { nome: 'Egito', emoji: '🇪🇬' }, { nome: 'Emirados Árabes', emoji: '🇦🇪' },
+        { nome: 'Equador', emoji: '🇪🇨' }, { nome: 'Espanha', emoji: '🇪🇸' }, { nome: 'Estados Unidos', emoji: '🇺🇸' },
+        { nome: 'Finlândia', emoji: '🇫🇮' }, { nome: 'França', emoji: '🇫🇷' }, { nome: 'Grécia', emoji: '🇬🇷' },
+        { nome: 'Holanda', emoji: '🇳🇱' }, { nome: 'Inglaterra', emoji: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, { nome: 'Israel', emoji: '🇮🇱' },
+        { nome: 'Itália', emoji: '🇮🇹' }, { nome: 'Japão', emoji: '🇯🇵' }, { nome: 'México', emoji: '🇲🇽' },
+        { nome: 'Noruega', emoji: '🇳🇴' }, { nome: 'Paraguai', emoji: '🇵🇾' }, { nome: 'Peru', emoji: '🇵🇪' },
+        { nome: 'Polônia', emoji: '🇵🇱' }, { nome: 'Portugal', emoji: '🇵🇹' }, { nome: 'Reino Unido', emoji: '🇬🇧' },
+        { nome: 'Rússia', emoji: '🇷🇺' }, { nome: 'Suécia', emoji: '🇸🇪' }, { nome: 'Suíça', emoji: '🇨🇭' },
+        { nome: 'Turquia', emoji: '🇹🇷' }, { nome: 'Ucrânia', emoji: '🇺🇦' }, { nome: 'Uruguai', emoji: '🇺🇾' },
+        { nome: 'Venezuela', emoji: '🇻🇪' }, { nome: 'África do Sul', emoji: '🇿🇦' }, { nome: 'Angola', emoji: '🇦🇴' },
+        { nome: 'Coreia do Sul', emoji: '🇰🇷' }, { nome: 'Índia', emoji: '🇮🇳' }, { nome: 'Marrocos', emoji: '🇲🇦' },
+        { nome: 'Nigéria', emoji: '🇳🇬' }, { nome: 'Outro (consultar)', emoji: '🌍' },
+    ].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+
+    const paisesFiltrados = listaPaises.filter(p =>
+        p.nome.toLowerCase().includes(buscaPais.toLowerCase())
+    );
+
     useEffect(() => {
         const tam = produto.tamanhos.find(t => t.id === tamanhoId);
         if (tam && tam.precos[materialSelecionado]) {
@@ -55,7 +84,7 @@ export function ProductDetail() {
             tamanho: tamanhoSelecionado ? `${tamanhoSelecionado.tamanho} (${tamanhoSelecionado.medida})` : '',
             preco: precoAtual,
             quantidade: 1,
-            observacao: observacao
+            observacao: isBandeiraMundo && paisSelecionado ? `País: ${paisSelecionado.emoji} ${paisSelecionado.nome}${observacao ? ' | ' + observacao : ''}` : observacao
         };
 
         addToCart(item);
@@ -259,6 +288,46 @@ export function ProductDetail() {
                             )}
                         </div>
 
+                        {/* Seletor de País - Bandeiras do Mundo */}
+                        {isBandeiraMundo && (
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.8rem', color: 'var(--dark-blue)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '500' }}>
+                                    <span style={{ backgroundColor: 'var(--dark-blue)', color: 'white', width: '22px', height: '22px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: '700' }}>★</span>
+                                    Selecione o País
+                                </h4>
+                                <button
+                                    onClick={() => setIsPaisModalOpen(true)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.9rem 1rem',
+                                        border: paisSelecionado ? '2px solid var(--dark-blue)' : '1px dashed var(--border-color)',
+                                        borderRadius: '8px',
+                                        backgroundColor: paisSelecionado ? 'rgba(21,50,91,0.04)' : 'white',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.75rem',
+                                        transition: 'all 0.2s'
+                                    }}
+                                >
+                                    <Globe size={20} color={paisSelecionado ? 'var(--dark-blue)' : '#9ca3af'} />
+                                    {paisSelecionado ? (
+                                        <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--dark-blue)' }}>
+                                            {paisSelecionado.emoji} {paisSelecionado.nome}
+                                        </span>
+                                    ) : (
+                                        <span style={{ fontSize: '0.9rem', color: '#9ca3af' }}>Clique para escolher o país da bandeira...</span>
+                                    )}
+                                    {paisSelecionado && (
+                                        <span
+                                            onClick={(e) => { e.stopPropagation(); setPaisSelecionado(null); }}
+                                            style={{ marginLeft: 'auto', color: '#9ca3af', cursor: 'pointer', fontSize: '1.2rem', lineHeight: 1 }}
+                                        >×</span>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+
                         {/* Passo Personalização */}
                         {isPersonalizado && (
                             <div style={{ marginBottom: '2.5rem', padding: '1.5rem', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px' }}>
@@ -440,6 +509,108 @@ export function ProductDetail() {
                                     </>
                                 );
                             })()}
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* Modal de Seleção de País */}
+            {isPaisModalOpen && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1000,
+                        padding: '1rem',
+                        backdropFilter: 'blur(3px)'
+                    }}
+                    onClick={() => { setIsPaisModalOpen(false); setBuscaPais(''); }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: 'white',
+                            borderRadius: '12px',
+                            width: '100%',
+                            maxWidth: '560px',
+                            maxHeight: '85vh',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.15)'
+                        }}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                                <Globe size={20} color="var(--dark-blue)" />
+                                <h3 style={{ fontSize: '1.1rem', color: 'var(--dark-blue)', margin: 0, fontWeight: '700' }}>Selecione o País</h3>
+                            </div>
+                            <button
+                                onClick={() => { setIsPaisModalOpen(false); setBuscaPais(''); }}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', display: 'flex' }}
+                            >
+                                <X size={22} />
+                            </button>
+                        </div>
+
+                        {/* Busca */}
+                        <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-color)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '0.6rem 0.9rem', backgroundColor: '#f9fafb' }}>
+                                <Search size={16} color="#9ca3af" />
+                                <input
+                                    type="text"
+                                    autoFocus
+                                    placeholder="Buscar país..."
+                                    value={buscaPais}
+                                    onChange={e => setBuscaPais(e.target.value)}
+                                    style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.95rem', backgroundColor: 'transparent', color: '#374151' }}
+                                />
+                                {buscaPais && (
+                                    <button onClick={() => setBuscaPais('')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#9ca3af', display: 'flex', padding: 0 }}>
+                                        <X size={14} />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Lista de Países */}
+                        <div style={{ overflowY: 'auto', flex: 1, padding: '0.75rem' }}>
+                            {paisesFiltrados.length === 0 ? (
+                                <p style={{ textAlign: 'center', color: '#9ca3af', padding: '2rem', fontSize: '0.9rem' }}>Nenhum país encontrado.</p>
+                            ) : (
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '0.5rem' }}>
+                                    {paisesFiltrados.map((pais) => (
+                                        <button
+                                            key={pais.nome}
+                                            onClick={() => {
+                                                setPaisSelecionado(pais);
+                                                setIsPaisModalOpen(false);
+                                                setBuscaPais('');
+                                            }}
+                                            style={{
+                                                padding: '0.65rem 0.75rem',
+                                                border: paisSelecionado?.nome === pais.nome ? '2px solid var(--dark-blue)' : '1px solid var(--border-color)',
+                                                borderRadius: '8px',
+                                                backgroundColor: paisSelecionado?.nome === pais.nome ? 'var(--dark-blue)' : 'white',
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                                transition: 'all 0.15s',
+                                                textAlign: 'left'
+                                            }}
+                                            onMouseEnter={e => { if (paisSelecionado?.nome !== pais.nome) { e.currentTarget.style.backgroundColor = '#f3f4f6'; e.currentTarget.style.borderColor = 'var(--dark-blue)'; } }}
+                                            onMouseLeave={e => { if (paisSelecionado?.nome !== pais.nome) { e.currentTarget.style.backgroundColor = 'white'; e.currentTarget.style.borderColor = 'var(--border-color)'; } }}
+                                        >
+                                            <span style={{ fontSize: '1.4rem', lineHeight: 1 }}>{pais.emoji}</span>
+                                            <span style={{ fontSize: '0.82rem', fontWeight: '500', color: paisSelecionado?.nome === pais.nome ? 'white' : 'var(--dark-blue)', lineHeight: 1.2 }}>{pais.nome}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

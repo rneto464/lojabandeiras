@@ -55,7 +55,7 @@ export function Products() {
                 { id: 'ofic-022', produto: 'Bandeira 0,22 x 0,33m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,22 x 0,33m.png' },
                 { id: 'ofic-030', produto: 'Bandeira 0,30 x 0,40m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,30 x 0,40m.png' },
                 { id: 'ofic-040', produto: 'Bandeira 0,40 x 0,60m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,40 x 0,60m.png' },
-                { id: 'ofic-2panos', produto: 'Bandeira 2 Panos (0,90 x 1,28m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 2 Panos (0,90 x 1,28m).png' },
+                { id: 'ofic-2panos', produto: 'Bandeira 2 Panos (0,90 x 1,28m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
                 { id: 'ofic-2meia', produto: 'Bandeira 2 1/2 Panos (1,12 x 1,60m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
                 { id: 'ofic-3panos', produto: 'Bandeira 3 Panos (1,35 x 1,92m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
                 { id: 'ofic-4panos', produto: 'Bandeira 4 Panos (1,80 x 2,56m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },

@@ -17,7 +17,7 @@ export const produtosDB = {
     },
     'ofic-2panos': {
         id: 'ofic-2panos', nome: 'Bandeira 2 Panos (0,90 x 1,28m)', sku: 'OFIC-2P', marca: 'Bandeiras Oficiais', estrelas: 5,
-        imagemPrincipal: '/images/Bandeira 2 Panos (0,90 x 1,28m).png', galeria: ['/images/Bandeira 2 Panos (0,90 x 1,28m).png'],
+        imagemPrincipal: '/images/bandeira-oficial-dobrada.png', galeria: ['/images/bandeira-oficial-dobrada.png'],
         materiaisDisponiveis: ['Oxford', 'Cetim'], tamanhos: [{ id: '1', tamanho: '0,90 x 1,28m', medida: '2 Panos', precos: { 'Oxford': '124,80', 'Cetim': '202,80' } }]
     },
     'ofic-2meia': {

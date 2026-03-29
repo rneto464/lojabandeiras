@@ -9,6 +9,7 @@ export function Home() {
     const [material, setMaterial] = useState('Oxford');
     const [tamanhoId, setTamanhoId] = useState('o4'); // Default para 2 panos oxford
     const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
 
     const [destaqueIndex, setDestaqueIndex] = useState(0);
 
@@ -23,27 +24,27 @@ export function Home() {
 
     const bandeiraOficial = {
         'Oxford': [
-            { id: 'o1', tamanho: '0.22m x 0.33m', medida: 'Oficial', preco: '22,00', parcelas: null, valorParcela: null },
-            { id: 'o2', tamanho: '0.30m x 0.40m', medida: 'Oficial', preco: '25,00', parcelas: null, valorParcela: null },
-            { id: 'o3', tamanho: '0.40m x 0.60m', medida: 'Oficial', preco: '28,00', parcelas: null, valorParcela: null },
-            { id: 'o4', tamanho: '0.90m x 1.28m', medida: '2 Panos', preco: '96,00', parcelas: 2, valorParcela: '48,00' },
-            { id: 'o5', tamanho: '1.12m x 1.60m', medida: '2 1/2 Panos', preco: '112,00', parcelas: 2, valorParcela: '56,00' },
-            { id: 'o6', tamanho: '1.35m x 1.92m', medida: '3 Panos', preco: '156,00', parcelas: 3, valorParcela: '52,00' },
-            { id: 'o7', tamanho: '1.80m x 2.56m', medida: '4 Panos', preco: '260,00', parcelas: 5, valorParcela: '52,00' },
-            { id: 'o8', tamanho: '2.25m x 3.25m', medida: '5 Panos', preco: '420,00', parcelas: 6, valorParcela: '70,00' },
-            { id: 'o9', tamanho: '2.70m x 3.90m', medida: '6 Panos', preco: '460,00', parcelas: 6, valorParcela: '76,66' },
-            { id: 'o10', tamanho: '3.15m x 4.55m', medida: '7 Panos', preco: '540,00', parcelas: 6, valorParcela: '90,00' },
-            { id: 'o11', tamanho: '3.60m x 5.20m', medida: '8 Panos', preco: '640,00', parcelas: 6, valorParcela: '106,66' },
-            { id: 'o12', tamanho: '4.05m x 5.85m', medida: '9 Panos', preco: '1.100,00', parcelas: 10, valorParcela: '110,00' },
-            { id: 'o13', tamanho: '4.50m x 6.50m', medida: '10 Panos', preco: '1.260,00', parcelas: 10, valorParcela: '126,00' },
-            { id: 'o14', tamanho: '5.40m x 7.80m', medida: '12 Panos', preco: '1.390,00', parcelas: 10, valorParcela: '139,00' },
-            { id: 'o15', tamanho: '5.85m x 8.45m', medida: '13 Panos', preco: '1.690,00', parcelas: 10, valorParcela: '169,00' },
-            { id: 'o16', tamanho: '6.30m x 9.10m', medida: '14 / 20 Panos', preco: '2.060,00', parcelas: 10, valorParcela: '206,00' },
-            { id: 'o17', tamanho: '10.40m x 7.20m', medida: '16 Panos', preco: '2.540,00', parcelas: 10, valorParcela: '254,00' },
+            { id: 'o1', tamanho: '0.22m x 0.33m', medida: 'Oficial', preco: '28,60', parcelas: null, valorParcela: null },
+            { id: 'o2', tamanho: '0.30m x 0.40m', medida: 'Oficial', preco: '32,50', parcelas: null, valorParcela: null },
+            { id: 'o3', tamanho: '0.40m x 0.60m', medida: 'Oficial', preco: '36,40', parcelas: null, valorParcela: null },
+            { id: 'o4', tamanho: '0.90m x 1.28m', medida: '2 Panos', preco: '124,80', parcelas: 2, valorParcela: '62,40' },
+            { id: 'o5', tamanho: '1.12m x 1.60m', medida: '2 1/2 Panos', preco: '145,60', parcelas: 2, valorParcela: '72,80' },
+            { id: 'o6', tamanho: '1.35m x 1.92m', medida: '3 Panos', preco: '202,80', parcelas: 3, valorParcela: '67,60' },
+            { id: 'o7', tamanho: '1.80m x 2.56m', medida: '4 Panos', preco: '338,00', parcelas: 5, valorParcela: '67,60' },
+            { id: 'o8', tamanho: '2.25m x 3.25m', medida: '5 Panos', preco: '546,00', parcelas: 6, valorParcela: '91,00' },
+            { id: 'o9', tamanho: '2.70m x 3.90m', medida: '6 Panos', preco: '598,00', parcelas: 6, valorParcela: '99,66' },
+            { id: 'o10', tamanho: '3.15m x 4.55m', medida: '7 Panos', preco: '702,00', parcelas: 6, valorParcela: '117,00' },
+            { id: 'o11', tamanho: '3.60m x 5.20m', medida: '8 Panos', preco: '832,00', parcelas: 8, valorParcela: '104,00' },
+            { id: 'o12', tamanho: '4.05m x 5.85m', medida: '9 Panos', preco: '1.430,00', parcelas: 10, valorParcela: '143,00' },
+            { id: 'o13', tamanho: '4.50m x 6.50m', medida: '10 Panos', preco: '1.638,00', parcelas: 10, valorParcela: '163,80' },
+            { id: 'o14', tamanho: '5.40m x 7.80m', medida: '12 Panos', preco: '1.807,00', parcelas: 10, valorParcela: '180,70' },
+            { id: 'o15', tamanho: '5.85m x 8.45m', medida: '13 Panos', preco: '2.197,00', parcelas: 10, valorParcela: '219,70' },
+            { id: 'o16', tamanho: '6.30m x 9.10m', medida: '14 / 20 Panos', preco: '2.678,00', parcelas: 10, valorParcela: '267,80' },
+            { id: 'o17', tamanho: '10.40m x 7.20m', medida: '16 Panos', preco: '3.302,00', parcelas: 10, valorParcela: '330,20' },
         ],
         'Cetim': [
-            { id: 'c1', tamanho: '0.90m x 1.28m', medida: '2 Panos', preco: '156,00', parcelas: 3, valorParcela: '52,00' },
-            { id: 'c2', tamanho: '1.12m x 1.60m', medida: '2 1/2 Panos', preco: '172,00', parcelas: 3, valorParcela: '57,33' },
+            { id: 'c1', tamanho: '0.90m x 1.28m', medida: '2 Panos', preco: '202,80', parcelas: 3, valorParcela: '67,60' },
+            { id: 'c2', tamanho: '1.12m x 1.60m', medida: '2 1/2 Panos', preco: '223,60', parcelas: 3, valorParcela: '74,53' },
         ]
     };
 
@@ -72,18 +73,16 @@ export function Home() {
         };
 
         addToCart(productToAdd);
-
-
-
-
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
     };
 
     const handleAddToCart = () => {
         const item = {
             id: 'bnd-ofic-01',
-            nome: 'Bandeira Oficial',
+            nome: 'Bandeira Oficial (Brasil)',
             sku: 'BND-OFIC-01',
-            imagemPrincipal: '/images/Captura de tela 2026-03-05 192431.png',
+            imagemPrincipal: '/images/bandeira-brasil.jpeg',
             material: material,
             tamanhoId: produtoSelecionado.id,
             tamanho: `${produtoSelecionado.tamanho} (${produtoSelecionado.medida})`,
@@ -92,7 +91,8 @@ export function Home() {
         };
 
         addToCart(item);
-        navigate('/checkout');
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
     };
 
     return (
@@ -495,7 +495,7 @@ export function Home() {
                             }}>
                                 {/* Left Column: Product Info */}
                                 <div style={{ height: '100%' }}>
-                                    <h3 style={{ fontSize: '2rem', color: 'var(--dark-blue)', marginBottom: '0.5rem' }}>Bandeira Oficial</h3>
+                                    <h3 style={{ fontSize: '2rem', color: 'var(--dark-blue)', marginBottom: '0.5rem' }}>Bandeira Oficial (Brasil)</h3>
                                     <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>SKU: BND-OFIC-01</p>
 
                                     <div style={{ marginBottom: '2rem' }}>
@@ -743,7 +743,7 @@ export function Home() {
             )}
 
             {/* Notification when adding directly from card */}
-            {false && (
+            {showNotification && (
                 <div style={{
                     position: 'fixed',
                     bottom: '20px',

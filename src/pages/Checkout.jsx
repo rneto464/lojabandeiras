@@ -131,7 +131,7 @@ export function Checkout() {
                             {cartItems.map((item, index) => (
                                 <div key={index} style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
                                     <div style={{ width: '60px', height: '60px', borderRadius: '4px', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
-                                        <img src={item.imagem || item.imagemPrincipal || item.image || '/images/bandeira-oficial-dobrada.png'} alt={item.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <img src={item.imagem || item.imagemPrincipal || item.image || '/images/bandeira-oficial-dobrada.png'} alt={item.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.onerror = null; e.target.src = '/images/bandeira-oficial-dobrada.png'; }} />
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <div style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--dark-blue)', marginBottom: '0.2rem' }}>{item.nome}</div>

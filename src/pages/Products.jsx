@@ -52,23 +52,9 @@ export function Products() {
             descricao: 'Linha fabricada em Oxford 100% ou Cetim de seda, com leitura correta dos dois lados.',
             imagemBanner: '/images/bandeira-oficial-dobrada.png',
             itens: [
-                { id: 'ofic-022', produto: 'Bandeira 0,22 x 0,33m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,22 x 0,33m.png' },
-                { id: 'ofic-030', produto: 'Bandeira 0,30 x 0,40m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,30 x 0,40m.png' },
-                { id: 'ofic-040', produto: 'Bandeira 0,40 x 0,60m', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,40 x 0,60m.png' },
-                { id: 'ofic-2panos', produto: 'Bandeira 2 Panos (0,90 x 1,28m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-2meia', produto: 'Bandeira 2 1/2 Panos (1,12 x 1,60m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-3panos', produto: 'Bandeira 3 Panos (1,35 x 1,92m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-4panos', produto: 'Bandeira 4 Panos (1,80 x 2,56m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-5panos', produto: 'Bandeira 5 Panos (2,25 x 3,25m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-6panos', produto: 'Bandeira 6 Panos (2,70 x 3,90m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-7panos', produto: 'Bandeira 7 Panos (3,15 x 4,55m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-8panos', produto: 'Bandeira 8 Panos (3,60 x 5,20m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-9panos', produto: 'Bandeira 9 Panos (4,05 x 5,85m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-10panos', produto: 'Bandeira 10 Panos (4,50 x 6,50m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-12panos', produto: 'Bandeira 12 Panos (5,40 x 7,80m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-13panos', produto: 'Bandeira 13 Panos (5,85 x 8,45m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-14panos', produto: 'Bandeira 14/20 Panos (6,30 x 9,10m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
-                { id: 'ofic-16panos', produto: 'Bandeira 16 Panos (10,40 x 7,20m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' }
+                { id: 'ofic-022', produto: 'Bandeiras de Mesa e Mão (Até 0,60m)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/Bandeira 0,22 x 0,33m.png' },
+                { id: 'ofic-2panos', produto: 'Bandeiras Linha Padrão (2 a 4 Panos)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' },
+                { id: 'ofic-5panos', produto: 'Bandeiras Linha Gigante (5 a 16 Panos)', secao: 'OFICIAL DUPLA FACE', imagem: '/images/bandeira-oficial-dobrada.png' }
             ]
         },
         {

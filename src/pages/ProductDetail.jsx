@@ -12,18 +12,60 @@ export function ProductDetail() {
     // Formata o nome pelo ID se não tiver no DB
     const idFormatado = id ? id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Produto';
 
-    const produto = produtosDB[id] || {
+    let baseProduto = produtosDB[id] || {
         ...produtosDB['premium-meia'],
         id,
         nome: `${idFormatado}`,
         sku: `SKU-${id.substring(0, 6).toUpperCase()}`
     };
 
+    // Injetar todos os tamanhos para bandeiras
+    const isBandeiraPadrao = id && (id.startsWith('ofic-') || id.startsWith('emp-') || id.startsWith('premium-') || id.startsWith('luxo-'));
+    
+    if (isBandeiraPadrao) {
+        const productIds = [
+            'ofic-022', 'ofic-030', 'ofic-040', 'ofic-2panos', 'ofic-2meia',
+            'ofic-3panos', 'ofic-4panos', 'ofic-5panos', 'ofic-6panos', 'ofic-7panos',
+            'ofic-8panos', 'ofic-9panos', 'ofic-10panos', 'ofic-12panos', 'ofic-13panos',
+            'ofic-14panos', 'ofic-16panos'
+        ];
+        baseProduto = {
+            ...baseProduto,
+            materiaisDisponiveis: ['Oxford', 'Cetim'],
+            tamanhos: productIds.map(pid => {
+                const p = produtosDB[pid];
+                if (!p) return null;
+                const oxfordPrice = p.tamanhos[0].precos['Oxford'] || p.tamanhos[0].precos['Poliéster'] || '0,00';
+                
+                let cetimPrice = p.tamanhos[0].precos['Cetim'];
+                if (!cetimPrice) {
+                    const oxfVal = parseFloat(oxfordPrice.replace('.', '').replace(',', '.'));
+                    cetimPrice = (oxfVal * 1.5).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                return {
+                    id: pid,
+                    tamanho: p.tamanhos[0].tamanho,
+                    medida: p.tamanhos[0].medida,
+                    precos: {
+                        'Oxford': oxfordPrice,
+                        'Cetim': cetimPrice,
+                        'Poliéster': oxfordPrice
+                    }
+                };
+            }).filter(Boolean)
+        };
+    }
+
+    const produto = baseProduto;
+
+    const initialTamanhoId = isBandeiraPadrao && produto.tamanhos.find(t => t.id === id) ? id : produto.tamanhos[0].id;
+
     const [materialSelecionado, setMaterialSelecionado] = useState(produto.materiaisDisponiveis[0]);
-    const [tamanhoId, setTamanhoId] = useState(produto.tamanhos[0].id);
+    const [tamanhoId, setTamanhoId] = useState(initialTamanhoId);
     const [quantidade, setQuantidade] = useState(1);
     const [imagemAtiva, setImagemAtiva] = useState(0);
-    const [precoAtual, setPrecoAtual] = useState(produto.tamanhos[0].precos[materialSelecionado]);
+    const [precoAtual, setPrecoAtual] = useState(produto.tamanhos.find(t => t.id === initialTamanhoId)?.precos[produto.materiaisDisponiveis[0]] || produto.tamanhos[0].precos[produto.materiaisDisponiveis[0]] || '0,00');
     const [observacao, setObservacao] = useState('');
     const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
 
@@ -329,7 +371,7 @@ export function ProductDetail() {
                         )}
 
                         {/* Passo Personalização */}
-                        {isPersonalizado && (
+                        {(isPersonalizado || isBandeiraPadrao) && (
                             <div style={{ marginBottom: '2.5rem', padding: '1.5rem', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px' }}>
                                 <h4 style={{ fontSize: '1.1rem', marginBottom: '0.8rem', color: '#166534', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '500' }}>
                                     <span style={{ backgroundColor: '#166534', color: 'white', width: '22px', height: '22px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', fontWeight: '700' }}>★</span>

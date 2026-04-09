@@ -1,7 +1,7 @@
 export const produtosDB = {
     // 1. Bandeiras Oficiais (Brasil e Estados)
     'ofic-022': {
-        id: 'ofic-022', nome: 'Bandeira 0,22 x 0,33m', sku: 'OFIC-022', marca: 'Bandeiras Oficiais', estrelas: 5,
+        id: 'ofic-022', nome: 'Bandeiras de Mesa e Mão (Até 0,60m)', sku: 'OFIC-022', marca: 'Bandeiras Oficiais', estrelas: 5,
         imagemPrincipal: '/images/Bandeira 0,22 x 0,33m.png', galeria: ['/images/Bandeira 0,22 x 0,33m.png'],
         materiaisDisponiveis: ['Oxford'], tamanhos: [{ id: '1', tamanho: '0,22 x 0,33m', medida: 'Padrão', precos: { 'Oxford': '28,60' } }]
     },
@@ -16,7 +16,7 @@ export const produtosDB = {
         materiaisDisponiveis: ['Oxford'], tamanhos: [{ id: '1', tamanho: '0,40 x 0,60m', medida: 'Padrão', precos: { 'Oxford': '36,40' } }]
     },
     'ofic-2panos': {
-        id: 'ofic-2panos', nome: 'Bandeira 2 Panos (0,90 x 1,28m)', sku: 'OFIC-2P', marca: 'Bandeiras Oficiais', estrelas: 5,
+        id: 'ofic-2panos', nome: 'Bandeiras Linha Padrão (2 a 4 Panos)', sku: 'OFIC-2P', marca: 'Bandeiras Oficiais', estrelas: 5,
         imagemPrincipal: '/images/bandeira-oficial-dobrada.png', galeria: ['/images/bandeira-oficial-dobrada.png'],
         materiaisDisponiveis: ['Oxford', 'Cetim'], tamanhos: [{ id: '1', tamanho: '0,90 x 1,28m', medida: '2 Panos', precos: { 'Oxford': '124,80', 'Cetim': '202,80' } }]
     },
@@ -36,7 +36,7 @@ export const produtosDB = {
         materiaisDisponiveis: ['Oxford'], tamanhos: [{ id: '1', tamanho: '1,80 x 2,56m', medida: '4 Panos', precos: { 'Oxford': '338,00' } }]
     },
     'ofic-5panos': {
-        id: 'ofic-5panos', nome: 'Bandeira 5 Panos (2,25 x 3,25m)', sku: 'OFIC-5P', marca: 'Bandeiras Oficiais', estrelas: 5,
+        id: 'ofic-5panos', nome: 'Bandeiras Linha Gigante (5 a 16 Panos)', sku: 'OFIC-5P', marca: 'Bandeiras Oficiais', estrelas: 5,
         imagemPrincipal: '/images/bandeira-oficial-dobrada.png', galeria: ['/images/bandeira-oficial-dobrada.png'],
         materiaisDisponiveis: ['Oxford'], tamanhos: [{ id: '1', tamanho: '2,25 x 3,25m', medida: '5 Panos', precos: { 'Oxford': '546,00' } }]
     },

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
-import { ShieldCheck, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, ArrowLeft, CheckCircle2, Copy } from 'lucide-react';
 import { Wallet } from '@mercadopago/sdk-react';
 import { createPreference } from '../services/mercadopago';
 
@@ -10,6 +10,8 @@ export function Checkout() {
     const navigate = useNavigate();
     const [preferenceId, setPreferenceId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState('mercadopago');
+    const pixKey = "124a46ca-00e9-4232-ae61-5d02f5545991";
 
     const formatPrice = (value) => {
         return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -42,6 +44,30 @@ export function Checkout() {
         const nome = formData.get('nome');
         const endereco = formData.get('endereco');
         const cep = formData.get('cep');
+
+        if (paymentMethod === 'pix') {
+            let message = `*NOVO PEDIDO (Pagamento via PIX)*\n\n`;
+            message += `*Cliente:* ${nome}\n`;
+            message += `*E-mail:* ${email}\n`;
+            message += `*Endereço:* ${endereco} - ${cep}\n\n`;
+            message += `*Itens do Pedido:*\n`;
+            cartItems.forEach(item => {
+                message += `- ${item.quantidade}x ${item.nome} (${item.material} / ${item.tamanho}) - R$ ${item.preco}\n`;
+                if (item.observacao) {
+                    message += `  *Detalhes da Arte:* ${item.observacao}\n`;
+                }
+            });
+            message += `\n*TOTAL:* R$ ${cartTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}\n`;
+            message += `\n*Atenção:* Segue o comprovante do PIX.`;
+
+            const phone = '559884759642';
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+            
+            clearCart();
+            window.location.href = whatsappUrl;
+            return;
+        }
 
         setIsLoading(true);
 
@@ -165,21 +191,72 @@ export function Checkout() {
                             </div>
                         </div>
 
-                        {preferenceId ? (
-                            <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                                <h4 style={{ color: 'var(--dark-blue)', marginBottom: '1rem' }}>Conclua o Pagamento pelo Mercado Pago</h4>
-                                <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'security_safety' } }} />
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <h4 style={{ color: 'var(--dark-blue)', marginBottom: '1rem' }}>Forma de Pagamento</h4>
+                            <div style={{ display: 'flex', gap: '1rem' }}>
+                                <label style={{ flex: 1, border: `1px solid ${paymentMethod === 'mercadopago' ? 'var(--primary-yellow)' : 'var(--border-color)'}`, borderRadius: '4px', padding: '1rem', cursor: 'pointer', textAlign: 'center', backgroundColor: paymentMethod === 'mercadopago' ? '#fefce8' : 'white', transition: 'all 0.2s' }}>
+                                    <input type="radio" name="payment_method" value="mercadopago" checked={paymentMethod === 'mercadopago'} onChange={() => setPaymentMethod('mercadopago')} style={{ display: 'none' }} />
+                                    <strong style={{ display: 'block', color: 'var(--dark-blue)' }}>Mercado Pago</strong>
+                                    <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Cartão ou Boleto</span>
+                                </label>
+                                <label style={{ flex: 1, border: `1px solid ${paymentMethod === 'pix' ? 'var(--primary-yellow)' : 'var(--border-color)'}`, borderRadius: '4px', padding: '1rem', cursor: 'pointer', textAlign: 'center', backgroundColor: paymentMethod === 'pix' ? '#fefce8' : 'white', transition: 'all 0.2s' }}>
+                                    <input type="radio" name="payment_method" value="pix" checked={paymentMethod === 'pix'} onChange={() => setPaymentMethod('pix')} style={{ display: 'none' }} />
+                                    <strong style={{ display: 'block', color: 'var(--dark-blue)' }}>PIX Direto</strong>
+                                    <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Chave Aleatória</span>
+                                </label>
                             </div>
-                        ) : (
-                            <button
-                                type="submit"
-                                form="checkout-form"
-                                className="btn-primary"
-                                style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', opacity: isLoading ? 0.7 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
-                                disabled={isLoading}
-                            >
-                                {isLoading ? 'Gerando Pagamento...' : <><ShieldCheck size={20} /> Concluir Pedido Seguramente</>}
-                            </button>
+                        </div>
+
+                        {paymentMethod === 'mercadopago' && (
+                            preferenceId ? (
+                                <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+                                    <h4 style={{ color: 'var(--dark-blue)', marginBottom: '1rem' }}>Conclua o Pagamento pelo Mercado Pago</h4>
+                                    <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'security_safety' } }} />
+                                </div>
+                            ) : (
+                                <button
+                                    type="submit"
+                                    form="checkout-form"
+                                    className="btn-primary"
+                                    style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', opacity: isLoading ? 0.7 : 1, cursor: isLoading ? 'not-allowed' : 'pointer' }}
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? 'Gerando Pagamento...' : <><ShieldCheck size={20} /> Pagar com Mercado Pago</>}
+                                </button>
+                            )
+                        )}
+
+                        {paymentMethod === 'pix' && (
+                            <div style={{ marginTop: '1.5rem', textAlign: 'center', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '1.5rem', backgroundColor: '#f9fafb' }}>
+                                <h4 style={{ color: 'var(--dark-blue)', marginBottom: '0.5rem' }}>Chave PIX</h4>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>Copie a chave abaixo para realizar o pagamento no seu app do banco.</p>
+                                
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem', backgroundColor: 'white', border: '1px dashed var(--border-color)', padding: '0.5rem', borderRadius: '4px' }}>
+                                    <code style={{ fontSize: '0.9rem', wordBreak: 'break-all', color: 'var(--dark-blue)' }}>{pixKey}</code>
+                                    <button 
+                                        type="button" 
+                                        onClick={() => { 
+                                            navigator.clipboard.writeText(pixKey); 
+                                            alert('Chave PIX copiada com sucesso!'); 
+                                        }} 
+                                        style={{ padding: '0.5rem', backgroundColor: 'var(--bg-color)', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', color: 'var(--dark-blue)', transition: 'background-color 0.2s' }}
+                                        title="Copiar Chave PIX"
+                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e5e7eb'}
+                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-color)'}
+                                    >
+                                        <Copy size={16} /> Copiar
+                                    </button>
+                                </div>
+                                
+                                <button
+                                    type="submit"
+                                    form="checkout-form"
+                                    className="btn-primary"
+                                    style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', backgroundColor: '#10b981', borderColor: '#10b981' }}
+                                >
+                                    <CheckCircle2 size={20} /> Confirmar e Enviar Comprovante
+                                </button>
+                            </div>
                         )}
 
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', marginTop: '1rem', color: '#10b981', fontSize: '0.8rem' }}>

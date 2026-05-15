@@ -42,6 +42,10 @@ export default async function handler(req, res) {
                 payer: {
                     email: email || 'cliente@email.com'
                 },
+                payment_methods: {
+                    excluded_payment_types: [],
+                    installments: 1
+                },
                 back_urls: {
                     success: `${frontendUrl}/sucesso`,
                     failure: `${frontendUrl}/`,
